@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Una carta para ti 💌</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #e8d9b5, #f5e9c8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .sobre {
+    position: relative;
+    width: 420px;
+    height: 280px;
+    background: #f2e3c6;
+    border-radius: 10px;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+
+  /* TAPA DEL SOBRE */
+  .tapa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e6d3ad;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 3;
+  }
+
+  .sobre.abierto .tapa {
+    transform: rotateX(180deg);
+  }
+
+  /* SELLO */
+  .sello {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 46px;
+    background: radial-gradient(circle at top left, #d32f2f, #8e0000);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 4;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .sello:hover {
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .sobre.abierto .sello {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+  }
+
+  /* CARTA */
+  .carta {
+    position: absolute;
+    bottom: -120%;          /* 🔧 BAJADA REAL */
+    left: 5%;
+    width: 90%;
+    height: 80%;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: bottom 1s ease;
+    animation: aparecer 1.2s ease;
+  }
+
+  .sobre.abierto .carta {
+    bottom: 12%;            /* 🔧 POSICIÓN CORRECTA AL ABRIR */
+  }
+
+  .carta img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .sobre {
+      width: 95%;
+      height: 260px;
+    }
+
+    .carta {
+      width: 92%;
+      left: 4%;
+      height: 80%;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="sobre" id="sobre">
+  <div class="tapa"></div>
+
+  <div class="sello" onclick="abrirCarta()"></div>
+
+  <div class="carta">
+    <img src="tarjeta.png" alt="Tarjeta especial">
+  </div>
+</div>
+
+<script>
+  function abrirCarta() {
+    document.getElementById("sobre").classList.add("abierto");
+  }
+</script>
+
+</body>
+</html>
